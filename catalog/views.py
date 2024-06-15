@@ -14,7 +14,8 @@ class UserViewSet(viewsets.ModelViewSet):
         username = request.data.get("username")
         if not username:
             return Response(
-                {"error": "Username is required"}, status=status.HTTP_400_BAD_REQUEST
+                {"error": "Username is required"},
+                status=status.HTTP_400_BAD_REQUEST
             )
 
         user = User.objects.create(username=username)
@@ -51,7 +52,11 @@ class TransactionViewSet(viewsets.ModelViewSet):
 
         if not user_id or not transaction_type or not amount:
             return Response(
-                {"error": "User ID, transaction type, and amount are required"},
+                {
+                    "error": (
+                        "User ID, transaction type, and amount are required"
+                    )
+                },
                 status=status.HTTP_400_BAD_REQUEST,
             )
 

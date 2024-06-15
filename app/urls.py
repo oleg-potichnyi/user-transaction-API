@@ -28,7 +28,9 @@ def index(request):
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/catalog/", include(("catalog.urls", "catalog"), namespace="catalog")),
+    path("api/catalog/", include(
+        ("catalog.urls", "catalog"), namespace="catalog")
+         ),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/doc/swagger/",
