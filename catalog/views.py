@@ -10,7 +10,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
     @action(detail=False, methods=["post"])
-    def add_user(self, request):
+    def add_user(self, request) -> Response:
         username = request.data.get("username")
         if not username:
             return Response(
@@ -21,7 +21,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response({"id": user.id}, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=["get"])
-    def get_user(self, request, pk=None):
+    def get_user(self, request, pk=None) -> Response:
         try:
             user = User.objects.get(pk=pk)
         except User.DoesNotExist:
@@ -33,7 +33,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=["get"])
-    def get_all_users(self, request):
+    def get_all_users(self, request) -> Response:
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -44,7 +44,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
     serializer_class = TransactionSerializer
 
     @action(detail=False, methods=["post"])
-    def add_transaction(self, request):
+    def add_transaction(self, request) -> Response:
         user_id = request.data.get("user_id")
         transaction_type = request.data.get("transaction_type")
         amount = request.data.get("amount")
